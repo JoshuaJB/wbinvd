@@ -20,8 +20,8 @@ static struct proc_dir_entry *procfile;
 static int wbinvd_show(struct seq_file *m, void *v)
 {	
 	unsigned int cpu = get_cpu(); /* preempt off */
-	pr_info("%s: _show requested, executing WBINVD on all CPUs, from CPU %u\n",THIS_MODULE->name,cpu);
-	wbinvd_on_all_cpus();
+	pr_info("%s: _show requested, executing WBINVD on CPU %u\n",THIS_MODULE->name,cpu);
+	wbinvd_on_cpu(cpu);
 	put_cpu(); /* preempt on */
 	seq_printf(m, "WBINVD executed from CPU %u\n",cpu);
 	return 0;
